@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -11,7 +10,6 @@ export default function Contact() {
     message: '',
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
 
   const handleChange = (
@@ -21,32 +19,26 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
 
-    try {
-      const { error } = await supabase.from('contact_submissions').insert([formData]);
+    const subject = encodeURIComponent(`Machinery Inquiry from ${formData.fullName}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.fullName}\nCompany: ${formData.company}\nMachine Type: ${formData.machineType}\nBudget: ${formData.estimatedBudget}\nMessage: ${formData.message}`
+    );
 
-      if (error) throw error;
+    window.location.href = `mailto:info@mayilvia.com?subject=${subject}&body=${body}`;
 
-      setSubmitStatus('success');
-      setFormData({
-        fullName: '',
-        company: '',
-        machineType: '',
-        estimatedBudget: '',
-        message: '',
-      });
+    setSubmitStatus('success');
+    setFormData({
+      fullName: '',
+      company: '',
+      machineType: '',
+      estimatedBudget: '',
+      message: '',
+    });
 
-      setTimeout(() => setSubmitStatus(null), 5000);
-    } catch (err) {
-      console.error('Error submitting form:', err);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
+    setTimeout(() => setSubmitStatus(null), 5000);
   };
 
   return (
@@ -241,10 +233,9 @@ export default function Contact() {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-[#c9a24a] hover:bg-[#b8921f] disabled:bg-gray-400 text-white font-bold py-3 rounded-lg transition-colors duration-300"
+                className="w-full bg-[#c9a24a] hover:bg-[#b8921f] text-white font-bold py-3 rounded-lg transition-colors duration-300"
               >
-                {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
+                Submit Inquiry
               </button>
             </form>
 
