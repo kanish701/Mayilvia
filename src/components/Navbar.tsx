@@ -24,19 +24,19 @@ export default function Navbar() {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-        scrolled ? 'py-3 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm' : 'py-6 bg-transparent'
+        scrolled ? 'py-3 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm' : 'py-3 bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         
         {/* 1. Brand Logo - Minimalist Left */}
         <Link to="/" className="flex items-center gap-3 group relative z-10">
-          <div className="bg-white p-1 rounded-lg transition-transform group-hover:scale-105">
-            <img src={logo} alt="Mayilvia" className="h-10 w-auto object-contain" />
+          <div className="bg-white p-0 rounded-lg transition-transform group-hover:scale-105">
+            <img src={logo} alt="Mayilvia" className="h-14 w-auto object-contain" />
           </div>
           <div className="hidden sm:block">
             <span className={`block font-black text-lg tracking-tighter leading-none transition-colors ${scrolled ? 'text-gray-900' : 'text-gray-800'}`}>MAYILVIA</span>
-            <span className="text-[9px] text-[#1f6f63] font-bold tracking-[0.3em] uppercase">Precision Trade</span>
+            <span className="text-[9px] text-[#1f6f63] font-bold tracking-[0.3em] uppercase">Global Trade & Technology</span>
           </div>
         </Link>
 
