@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowUpRight, Play, Star, ShieldCheck, Globe } from 'lucide-react';
 
 export default function Hero() {
